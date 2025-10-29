@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskTree — Šablona</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo">●</span>
+      <h1>TaskTree</h1>
+    </div>
+    <div class="controls">
+      <button id="btn-new-project" class="btn primary">+ Projekt</button>
+      <button id="btn-import" class="btn">Import</button>
+      <button id="btn-export" class="btn">Export</button>
+      <button id="btn-share" class="btn">Sdílet</button>
+      <button id="btn-trash" class="btn danger">Koš</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="projects"></section>
+  </main>
+
+  <dialog id="dlg-project">
+    <form method="dialog">
+      <h2>Nový projekt</h2>
+      <input id="project-name" type="text" placeholder="Název projektu" required/>
+      <menu>
+        <button value="cancel" class="btn">Zrušit</button>
+        <button id="project-create" value="default" class="btn primary">Vytvořit</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-task">
+    <form method="dialog">
+      <h2>Nový úkol</h2>
+      <input id="task-name" type="text" placeholder="Název úkolu" required/>
+      <menu>
+        <button value="cancel" class="btn">Zrušit</button>
+        <button id="task-create" value="default" class="btn primary">Přidat</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-import">
+    <form method="dialog">
+      <h2>Importovat</h2>
+      <p>Vložte JSON export:</p>
+      <textarea id="import-text" rows="12" spellcheck="false"></textarea>
+      <menu>
+        <button value="cancel" class="btn">Zrušit</button>
+        <button id="import-apply" value="default" class="btn primary">Načíst</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="dlg-trash">
+    <form method="dialog">
+      <h2>Koš</h2>
+      <div id="trash-list" class="trash-list"></div>
+      <menu>
+        <button value="cancel" class="btn">Zavřít</button>
+        <button id="trash-empty" value="default" class="btn danger">Vysypat koš</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <template id="tpl-project">
+    <article class="project">
+      <div class="project-head">
+        <h2 class="project-title"></h2>
+        <div class="project-actions">
+          <button class="btn small" data-action="add-task">+ Úkol</button>
+          <button class="btn small danger" data-action="delete-project">Smazat</button>
+        </div>
+      </div>
+      <ul class="task-tree"></ul>
+    </article>
+  </template>
+
+  <template id="tpl-task">
+    <li class="task-node" draggable="false">
+      <div class="task-row" tabindex="0">
+        <button class="status-dot" title="Stav: kliknutím přepínat"></button>
+        <span class="task-title"></span>
+        <div class="spacer"></div>
+        <button class="btn tiny ghost" data-action="move-up" title="Posunout nahoru">↑</button>
+        <button class="btn tiny" data-action="add-subtask" title="Přidat podúkol">+Pod</button>
+        <button class="btn tiny ghost" data-action="share-task" title="Sdílet úkol">Sdílet</button>
+        <button class="btn tiny danger" data-action="delete-task" title="Smazat">Smazat</button>
+      </div>
+      <ul class="children"></ul>
+    </li>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
